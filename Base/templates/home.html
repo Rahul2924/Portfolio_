@@ -283,6 +283,20 @@ footer{background:var(--footer-bg);padding:26px 40px;display:flex;align-items:ce
     border-color: var(--lime) !important;
 }
 
+/* ══ STATIC CARD (mobile fallback for flying photo) ══ */
+.hero-static-card,.about-static-card{
+  display:none;
+  position:relative;
+  border-radius:24px;
+  overflow:hidden;
+  background:linear-gradient(160deg,var(--photo-s),var(--photo-e));
+  border:1px solid rgba(168,255,0,.12);
+  box-shadow:0 20px 60px rgba(0,0,0,.4);
+}
+.hero-static-card{width:clamp(160px,55vw,240px);height:clamp(210px,72vw,320px)}
+.about-static-card{width:clamp(200px,70vw,300px);height:clamp(260px,90vw,400px)}
+.static-card-photo{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+
 /* ══ RESPONSIVE ══ */
 
 /* Tablet 768–1024 */
@@ -311,11 +325,11 @@ footer{background:var(--footer-bg);padding:26px 40px;display:flex;align-items:ce
   .hero-right{align-items:center;padding:0;order:2;margin-bottom:20px}
   .hero-desc{max-width:320px;text-align:center}
   .hero-circle{bottom:-14px;left:-10px}
-  #heroGhost{width:clamp(160px,55vw,240px);height:clamp(210px,72vw,320px)}
 
-  /* disable flying card animation on mobile — show static card */
+  /* disable flying card animation on mobile — show static card instead */
   #flyCard{display:none}
-  .hero-static-card{display:flex!important}
+  #heroGhost{display:none}
+  .hero-static-card{display:flex}
 
   /* hero toggle */
   .hero-toggle{bottom:20px}
@@ -324,18 +338,15 @@ footer{background:var(--footer-bg);padding:26px 40px;display:flex;align-items:ce
   #about{grid-template-columns:1fr;gap:32px;padding:56px 20px 80px}
   .about-left{position:static}
   .about-right{padding-top:0}
-  #aboutGhost{width:clamp(200px,70vw,300px);height:clamp(260px,90vw,400px)}
+  #aboutGhost{display:none}
   .about-dot{display:none}
 
   /* static about photo (mobile fallback) */
-  .about-static-card{display:flex!important}
+  .about-static-card{display:flex}
 
   /* projects */
   #projects{padding:56px 20px 0}
   .proj-title{font-size:clamp(38px,10vw,60px)}
-  .pthumb{height:clamp(260px,70vw,360px)}
-  .pcard{position:relative;top:auto;margin-bottom:20px}
-  .proj-slot{height:auto!important}
 
   /* certs */
   #certs{padding:56px 20px}
@@ -394,7 +405,9 @@ footer{background:var(--footer-bg);padding:26px 40px;display:flex;align-items:ce
       <div class="hero-left" id="hL">
         <div class="hero-name">Rahul Raj T</div>
         <div class="hero-wl">SOFTWARE DEVELOPER</div>
-        <div class="hero-desc">Software Developer at Manappuram Finance R&amp;D — building systems and innovative tools.</div>
+        <div class="hero-desc">
+Software Developer at Manappuram Finance R&D, specializing in building scalable systems and innovative software solutions. B.Tech graduate with a strong foundation in computer science and a passion for developing efficient and impactful applications.
+</div>
       </div>
       <div class="hero-right" id="hR">
         <div id="heroGhost"></div>

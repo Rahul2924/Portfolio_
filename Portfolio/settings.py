@@ -81,7 +81,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = 'static/'
+# STATIC_URL = 'static/'
 # APP_DIRS=True already handles Base/static/ automatically
 # No STATICFILES_DIRS needed unless you have a root-level static folder
 
