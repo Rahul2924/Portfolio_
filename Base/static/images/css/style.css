@@ -1,0 +1,632 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&family=Ubuntu:wght@300;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Roboto:wght@500&family=Ubuntu:wght@300;500;700&display=swap');
+
+body {
+    background-color: #000000;
+}
+
+html {
+    scroll-padding-top: 100px; /* Adjust based on your navbar height */
+}
+
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Ubuntu', sans-serif;
+    scroll-behavior: smooth;
+}
+
+#navbar {
+    line-height: 4rem;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    border-bottom: .5px solid #ffffff52;
+    border-width: 80%;
+    margin-bottom: 1rem;
+    
+}
+#navbar{
+        background-color: rgb(1 94 115);
+}
+
+#navbar ul {
+    list-style: none;
+}
+
+#navbar ul li {
+    margin: 0px 1rem;
+}
+
+#navbar ul li a {
+    text-decoration: none;
+    padding: 0.5rem 0.9rem;
+
+}
+
+.right {
+    display: none;
+}
+
+.checkBtn {
+    display: none;
+}
+
+#check {
+    display: none;
+}
+
+.nav-col a:hover {
+    border-radius: .4rem;
+    color: #1f1f38;
+    background-color: #fff;
+}
+
+
+/* Home Section */
+
+
+#home {
+    padding-top: 80px; /* Reduce if it's too much */
+    padding-bottom: 40px;
+    min-height: 100vh;
+    align-items: center; /* Center vertically */
+}
+
+.home-left {
+    padding-top: 0; /* Remove or reduce top padding if it’s too much */
+}
+
+
+
+.home-left,
+.home-right {
+    width: 30%;
+    padding: 7rem;
+}
+
+.home-right {
+    padding: 0;
+}
+
+.home-left h6,
+h4 {
+    color: rgb(0, 146, 179);
+    margin: 1rem 0;
+    margin-left: 3px;
+    font-size: 5rem;
+}
+
+.home-left h1 {
+    font-size: 4rem;
+}
+
+.home-right {
+    position: relative;
+}
+
+.home-right img {
+    position: absolute;
+    width:170%;
+    left: 40px;
+    top: -50px;
+    background-size: cover;
+    border-radius: 84%;
+    height: 150%;
+}
+    
+
+
+.circle {
+    width: 17rem;
+    height: 17rem;
+    border-radius: 50%;
+    padding: .5rem;
+    position: relative;
+}
+
+/* Typing Effect */
+.name {
+    color: #ffffff;
+    font-weight: bold;
+    
+}
+
+.typing-text {
+    overflow: hidden;
+    border-right: 2px solid #fff;
+    white-space: nowrap;
+    width: 0;
+    animation: typing 3s steps(30, end) forwards, blink 0.75s step-end infinite;
+    display: inline-block;
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+@keyframes blink {
+    50% { border-color: transparent }
+}
+
+  /* Fade In and Slide Up */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 2s ease 3s forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* About Section */
+
+#about {
+    margin-top: 100px;
+}
+
+.about-left,
+.about-right {
+    width: 60%;
+}
+
+.about-right {
+    padding-right: 4rem;
+}
+
+.aboout-left {
+    position: relative;
+}
+
+.about-left img {
+    width: 100%;
+    height: 400px;;
+    border-radius: 1rem;
+}
+
+.about-content p {
+    margin-bottom: 2rem;
+}
+
+
+
+
+
+/* Skills */
+#skills {
+    margin-top: 80px; /* adjust value as needed */
+}
+
+
+
+.skills-left {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.skills-left img {
+    width: 150px;
+    height: auto;
+    object-fit: contain;
+}
+
+
+
+
+
+
+
+.skills-right {
+    width: 50%;
+}
+
+/* Skill Section Styling */
+.skillss-container {
+    width: 100%;
+    max-width: 700px; /* Increased width */
+    padding-right: 40px;
+  }
+  
+  .bar {
+    background-color: #444;
+    height: 35px; /* Increased height */
+    margin-bottom: 20px; /* More spacing between bars */
+    border-radius: 25px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .fill {
+    background-color: #00bcd4;
+    height: 100%;
+    width: 0; /* Still for animation readiness */
+    border-radius: 25px;
+    transition: width 1s ease-in-out;
+  }
+  
+  .bar-content {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px; /* Slightly larger font */
+    font-weight: 500;
+    padding: 0 12px;
+  }
+  
+  .left {
+    left: 0;
+  }
+  
+  .right-skills {
+    right: 0;
+  }
+    
+
+
+
+
+
+
+/* Projects Section */
+.projects-container {
+    display: flex;
+    flex-wrap: wrap;         /* Allows wrapping if needed */
+    justify-content: center; /* Or space-between / space-around */
+    gap: 20px;               /* Adjust gap if too large */
+    padding: 20px;
+}
+
+
+
+
+
+.projects-item {
+    width: 300px;            /* Adjust as needed */
+    min-height: 200px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #1a1a1a;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+
+.projects-item h1 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.projects-item p {
+    line-height: 20px;
+    font-size: .9rem;
+}
+
+.projects-item:hover {
+    background: rgb(0, 120, 150); /* Darken the background */
+    transform: scale(1.05); /* Slightly enlarge the item */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+    transition: all 0.3s ease-in-out; /* Smooth transition */
+}
+
+.github-btn {
+    background-color: #24292e !important; /* GitHub black */
+    color: #00c3ff !important;
+    border: none !important;
+    transition: background-color 0.3s ease;
+}
+
+.github-btn:hover {
+    background-color: hwb(0 100% 0%) !important; /* Slightly lighter on hover */
+    color: rgb(0, 217, 255) !important;
+}
+
+
+
+/* flip card */
+/* Flip card container */
+.flip-card {
+    background-color: transparent;
+    width: 300px;
+    height: 350px;
+    perspective: 1000px;
+}
+
+/* Inner part that flips */
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+/* Flip on click */
+.flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Front and back sides */
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Front side */
+.flip-card-front {
+    background-color: #1e1e2f;
+    color: white;
+}
+
+/* Back side */
+.flip-card-back {
+    background-color: #f1f1f1;
+    color: black;
+    transform: rotateY(180deg);
+    justify-content: center;
+    align-items: center;
+}
+
+.project-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+
+
+
+/* Certificate Sectiojn */
+.Certificates-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;       /* Reduced from 20px */
+    padding: 10px;   /* Reduced from 20px */
+    overflow: visible;
+}
+
+
+#Certificates {
+    overflow: visible; /* Makes sure entire section doesn’t clip the image */
+    position: relative; /* Needed for z-index stacking */
+}
+
+
+
+.Certificates-item {
+    width: 200px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+    position: relative;
+    z-index: 1;
+    margin: 10px;
+}
+
+
+
+
+.certificate-img {
+    width: 200px;
+    height: auto;
+    max-height: 300px;  /* Optional: so very tall images don’t stretch too much */
+    object-fit: contain;
+}
+
+
+
+.certificate-img:hover {
+    transform: scale(1.6);
+    z-index: 10; /* Ensure it pops above all */
+    transition: transform 0.3s ease;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+
+
+
+
+
+
+
+
+
+
+/* Wrapper to hold both form and contact info side by side */
+/* Contact Section Styling */
+
+
+
+/* Submit Button */
+#submit {
+    margin-top: 10px;
+}
+
+
+
+
+
+
+
+
+
+/* Footer Section  */
+#footer {
+    background-color: #010101;
+    padding: 1%;
+    padding-bottom: 2rem;
+}
+
+ul li {
+    list-style: none;
+    margin: 0 1rem;
+}
+
+ul li a {
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: white;
+    transition: all .5s;
+}
+
+ul li a:hover {
+    color: #fff;
+}
+
+
+.font-awesome {
+    margin: 1.1rem auto;
+}
+
+.font-awesome li i {
+    background-color: #1f1f38;
+    padding: 0.6rem;
+    border: 1px solid #1f1f38;
+    color: #fff;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all .4s ease-in-out;
+}
+
+.font-awesome li i:hover {
+    border: 1px solid #1f1f38;
+    border-radius: .5rem;
+    background: transparent;
+    color: #1f1f38;
+}
+
+#footer p {
+    color: white;
+    font-size: .9srem;
+}
+
+
+
+/* Utility Classes */
+.poppins {
+    font-family: 'Poppins', sans-serif;
+}
+
+.roboto {
+    font-family: 'Roboto', sans-serif;
+}
+
+.flex {
+    display: flex;
+}
+
+.s-between {
+    justify-content: space-between;
+}
+
+.s-around {
+    justify-content: space-around;
+}
+
+.s-center {
+    justify-content: center;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.f-col {
+    flex-direction: column;
+}
+
+
+.p-relative {
+    position: relative;
+}
+
+.t-white {
+    color: #fff;
+}
+
+.bg-color {
+    background-color: #1f1f38;
+}
+
+.t-center {
+    text-align: center;
+}
+
+.my-2 {
+    margin: 2rem 0;
+}
+
+.f-2 {
+    font-size: 2rem;
+}
+
+.m-b-1 {
+    margin-bottom: 1rem;
+}
+
+.w-50 {
+    width: 50%;
+}
+
+.w-80 {
+    width: 80%;
+}
+
+.h-50 {
+    height: 50vh;
+}
+
+.mx-1 {
+    margin: 0 1rem;
+}
+
+.m-top {
+    margin-top: 1rem;
+}
+
+.m-auto {
+    margin: auto;
+}
+
+.btn {
+    margin-left: 0 .5rem;
+    font-size: 1rem;
+    color: rgb(0, 146, 179);
+    cursor: pointer;
+    padding: 0.75rem 1.2rem;
+    border: 1px solid rgb(1 94 115);
+    border-radius: 0.4rem;
+    background: transparent;
+    font-family: 'Poppins', sans-serif;
+}
+
+.buttons a,
+#hireme {
+    text-decoration: none;
+}
+
+.btn:hover {
+    color: rgb(1 94 115);
+    border-color: #fff;
+    background-color: #fff;
+}
+
+.live {
+    color: #1f1f38;
+    background-color: #000000;
+}

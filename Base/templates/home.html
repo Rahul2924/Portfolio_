@@ -1,0 +1,865 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rahul Raj T — Software Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --bg:#525151; --bg2:#191927; --lime:#94719c; --white:#fff;
+  --muted:#999; --dim:#555; --border:rgba(255,255,255,0.06);
+  --nav-bg:#0f0f15; --alt:#161620; --input-bg:#1a1a24;
+  --input-border:rgba(255,255,255,0.07); --footer-bg:#0f0f15;
+  --photo-s:#2d2d38; --photo-e:#1a1a24; --photo-text:rgba(255,255,255,0.06);
+  --cert-bg:#1f1f2e; --ol:rgba(15,15,21,.96); --ol2:rgba(15,15,21,.15);
+}
+body.lm{
+  --bg:#fafaf8;--bg2:#f0f0eb;--white:#0a0a0a;--muted:#666;--dim:#999;
+  --border:rgba(0,0,0,.07);--nav-bg:#fff;--alt:#f5f5f0;
+  --input-bg:#fff;--input-border:rgba(0,0,0,.1);
+  --photo-s:#d0d0c8;--photo-e:#bfbfb7;--photo-text:rgba(0,0,0,.07);
+  --cert-bg:#fafaf8;--ol:rgba(245,245,240,.96);--ol2:rgba(245,245,240,.15);
+}
+body.lm .proj-big-title{color:#0a0a0a}
+body.lm .proj-big-desc{color:#666}
+body.lm .proj-arrow-btn{background:rgba(0,0,0,.1);color:#0a0a0a}
+body.lm .proj-arrow-btn:hover{background:var(--lime);color:#0a0a0a}
+body.lm .nav-links a{color:#666}
+body.lm .nav-links a:hover{color:#0a0a0a;background:rgba(0,0,0,.05)}
+body.lm .nav-cta{background:#0a0a0a!important;color:#fff!important}
+body.lm .nav-cta:hover{background:var(--lime)!important;color:#0a0a0a!important}
+body.lm .fsoc{border-color:#ddd;color:#999}
+body.lm .fsoc:hover{background:var(--lime);color:#0a0a0a;border-color:var(--lime)}
+body.lm .soc-btn{background:rgba(0,0,0,.06);color:#666}
+body.lm .soc-btn:hover{background:var(--lime);color:#0a0a0a}
+body.lm .cf-submit{background:#fff}
+body.lm #cur{background:#0a0a0a}
+body.lm #cur.big{background:transparent;border-color:#0a0a0a}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden;cursor:none;transition:background .4s,color .4s}
+
+/* CURSOR — hidden on touch */
+#cur{position:fixed;width:12px;height:12px;background:var(--lime);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .3s,height .3s,background .3s;display:none}
+@media(pointer:fine){#cur{display:block}}
+#cur.big{width:40px;height:40px;background:transparent;border:2px solid var(--lime)}
+
+/* ══ NAV ══ */
+nav{
+  position:fixed;top:16px;left:50%;transform:translateX(-50%);
+  z-index:1000;background:var(--nav-bg);border-radius:999px;
+  display:flex;align-items:center;padding:6px 8px;
+  box-shadow:0 4px 30px rgba(0,0,0,.4);
+  transition:background .4s;
+  max-width:calc(100vw - 32px);
+  gap:0;
+  border:1px solid rgba(168,255,0,.1);
+}
+.nav-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#333,#1a1a24);display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;color:#fff;flex-shrink:0;border:2px solid rgba(168,255,0,.2);margin-right:10px}
+.nav-links{display:flex;align-items:center;gap:2px;list-style:none}
+.nav-links a{text-decoration:none;color:#bbb;font-size:14px;font-weight:500;padding:7px 14px;border-radius:999px;transition:all .2s;white-space:nowrap}
+.nav-links a:hover{color:#fff;background:rgba(168,255,0,.08)}
+.nav-cta{background:var(--lime)!important;color:#0a0a0a!important;font-weight:600!important;margin-left:6px;padding:7px 16px!important;border-radius:999px!important}
+.nav-cta:hover{background:#fff!important;color:#0a0a0a!important}
+
+/* Hamburger for mobile */
+.nav-burger{display:none;flex-direction:column;gap:4px;padding:8px 10px;cursor:pointer;flex-shrink:0}
+.nav-burger span{display:block;width:20px;height:2px;background:var(--white);border-radius:2px;transition:all .3s}
+.nav-burger.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+.nav-burger.open span:nth-child(2){opacity:0}
+.nav-burger.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+
+/* Mobile nav drawer */
+.nav-drawer{
+  display:none;position:fixed;top:0;left:0;right:0;bottom:0;
+  background:var(--nav-bg);z-index:999;flex-direction:column;
+  align-items:center;justify-content:center;gap:8px;
+  opacity:0;transition:opacity .3s;
+}
+.nav-drawer.open{display:flex;opacity:1}
+.nav-drawer a{text-decoration:none;color:var(--white);font-family:'Barlow Condensed',sans-serif;font-size:42px;font-weight:900;text-transform:uppercase;letter-spacing:1px;padding:8px 24px;transition:color .2s}
+.nav-drawer a:hover{color:var(--lime)}
+.nav-drawer-close{position:absolute;top:20px;right:20px;font-size:32px;color:var(--muted);cursor:pointer;line-height:1}
+
+/* ══ HERO ══ */
+#hero{position:relative;height:220vh}
+.hero-sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;pointer-events:none}
+.hero-inner{width:100%;max-width:1300px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:60px;padding:0 40px;pointer-events:all}
+
+.hero-left{display:flex;flex-direction:column;align-items:flex-start;padding-right:0;will-change:transform,opacity}
+.hero-right{display:flex;flex-direction:column;align-items:center;position:relative;flex-shrink:0;order:2}
+.hero-name{font-family:'Barlow Condensed',sans-serif;font-size:clamp(14px,1.6vw,22px);font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;opacity:0;animation:fadeUp .8s .3s forwards}
+.hero-wl{font-family:'Barlow Condensed',sans-serif;font-size:clamp(52px,9vw,130px);font-weight:900;text-transform:uppercase;line-height:.9;letter-spacing:-2px;color:var(--white);opacity:0;animation:fadeUp .8s .5s forwards}
+.hero-desc{font-size:clamp(13px,1.2vw,15px);color:var(--muted);line-height:1.7;margin-top:16px;max-width:380px;opacity:0;animation:fadeUp .8s .8s forwards}
+
+#heroGhost{width:clamp(180px,20vw,320px);height:clamp(240px,26vw,420px);border-radius:24px;visibility:hidden;opacity:0;animation:scaleIn .9s .4s cubic-bezier(.16,1,.3,1) forwards;border:1px solid rgb(193, 78, 120)}
+.hero-circle{width:clamp(60px,6vw,86px);height:clamp(60px,6vw,86px);background:var(--lime);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:clamp(24px,2.5vw,34px);cursor:none;position:absolute;bottom:clamp(-20px,-2vw,-28px);left:clamp(-12px,-1.5vw,-18px);box-shadow:0 8px 30px rgba(168,255,0,.25);opacity:0;animation:scaleIn .7s 1s cubic-bezier(.16,1,.3,1) forwards;transition:transform .3s;z-index:2;will-change:transform;color:#0a0a0a}
+.hero-circle:hover{transform:scale(1.1) rotate(-10deg)}
+
+/* flycard */
+#flyCard{position:fixed;border-radius:24px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5);pointer-events:none;z-index:500;transform-style:preserve-3d;will-change:transform,top,left,width,height;transition:background .4s;border:1px solid rgba(168,255,0,.12)}
+.card-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;align-items:center;justify-content:center;border-radius:24px;background:linear-gradient(160deg,var(--photo-s),var(--photo-e));transition:background .4s}
+.card-face.back{transform:rotateY(180deg)}
+.card-photo{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;      /* Fills the card without distortion */
+    object-position: center;
+    border-radius: 24px;
+    z-index: 1;
+}
+
+.card-init,
+.card-label{
+    position: relative;
+    z-index: 2;
+}
+/* .card-init{font-family:'Barlow Condensed',sans-serif;font-size:clamp(40px,7vw,80px);font-weight:900;color:var(--photo-text);letter-spacing:-3px;pointer-events:none;user-select:none}
+.card-label{position:absolute;bottom:20px;left:0;right:0;text-align:center} */
+.card-label span{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:2px;color:rgba(168,255,0,.25);text-transform:uppercase}
+
+/* toggle */
+.hero-toggle{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:10px;opacity:0;animation:fadeUp .6s 1.2s forwards;pointer-events:all}
+.tlabel{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.tpill{width:50px;height:26px;background:var(--lime);border-radius:999px;position:relative;cursor:none;transition:background .3s;flex-shrink:0}
+.tknob{position:absolute;top:3px;right:3px;width:20px;height:20px;background:#0a0a0a;border-radius:50%;transition:all .3s}
+body.lm .tknob{right:auto;left:3px}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+
+/* ══ ABOUT ══ */
+#about{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;padding:80px 40px 120px;position:relative}
+.about-left{position:sticky;top:90px}
+.about-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(32px,4.5vw,64px);font-weight:900;text-transform:uppercase;letter-spacing:-1px;line-height:1;margin-bottom:14px}
+.about-sub{font-size:15px;color:var(--muted);line-height:1.7;max-width:400px;margin-bottom:36px}
+.svc-list{list-style:none;border-top:1px solid var(--border)}
+.svc-item{border-bottom:1px solid var(--border)}
+.svc-row{display:flex;align-items:center;justify-content:space-between;padding:20px 0;cursor:none}
+.svc-num{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;color:var(--lime);margin-right:14px;letter-spacing:1px}
+.svc-name{font-family:'Barlow Condensed',sans-serif;font-size:clamp(18px,2.2vw,28px);font-weight:900;text-transform:uppercase;letter-spacing:1px;flex:1}
+.svc-icon{font-size:16px;color:var(--muted);transition:transform .3s,color .2s}
+.svc-item.open .svc-icon{transform:rotate(180deg);color:var(--lime)}
+.svc-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
+.svc-body p{font-size:14px;color:var(--muted);line-height:1.7;padding-bottom:18px;padding-right:32px}
+.svc-item.open .svc-body{max-height:120px}
+.soc-row{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
+.soc-btn{width:44px;height:44px;background:rgba(168,255,0,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#999;font-size:18px;text-decoration:none;transition:all .25s;border:1px solid rgba(168,255,0,.15)}
+.soc-btn:hover{background:var(--lime);color:#0a0a0a;transform:translateY(-3px);border-color:var(--lime)}
+
+.about-right{position:relative;display:flex;flex-direction:column;align-items:center;padding-top:40px}
+#aboutGhost{width:clamp(220px,26vw,380px);height:clamp(290px,34vw,500px);border-radius:24px;border:1px solid rgba(168,255,0,.15)}
+.about-dot{width:14px;height:14px;background:var(--lime);border-radius:50%;position:absolute;top:-4px;right:24px;animation:fdot 3s ease-in-out infinite;box-shadow:0 0 20px rgba(168,255,0,.4)}
+@keyframes fdot{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+/* ══ PROJECTS ══ */
+#projects{padding:80px 40px 0;max-width:1200px;margin:0 auto}
+.proj-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(42px,8vw,110px);font-weight:900;text-transform:uppercase;letter-spacing:-2px;line-height:.9;margin-bottom:18px;position:relative;display:inline-block}
+.proj-ldot{width:14px;height:14px;background:var(--lime);border-radius:50%;position:absolute;bottom:8px;right:-20px;animation:fdot 2.5s ease-in-out infinite;box-shadow:0 0 20px rgba(168,255,0,.4)}
+.proj-sub{font-size:15px;color:var(--muted);line-height:1.7;max-width:500px;margin-bottom:48px}
+
+/* ── SYSTEM MAP (live process diagram) ── */
+.sysmap-wrap{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:stretch;margin-bottom:100px}
+.sysmap-diagram{position:relative;width:100%;aspect-ratio:4/3;background:radial-gradient(circle at 50% 50%,rgba(168,255,0,.05),transparent 62%);border-radius:24px;border:1px solid rgba(168,255,0,.1);overflow:hidden}
+.sysmap-svg{position:absolute;inset:0;width:100%;height:100%}
+.sysmap-line{fill:none;stroke:var(--muted);stroke-width:1.5;stroke-dasharray:5 7;opacity:.28;transition:stroke .4s,opacity .4s,stroke-width .4s;animation:sysdash 2.4s linear infinite}
+.sysmap-line.active{stroke:var(--lime);opacity:1;stroke-width:2.5;filter:drop-shadow(0 0 6px rgba(168,255,0,.55))}
+@keyframes sysdash{to{stroke-dashoffset:-24}}
+.sysmap-particle{fill:var(--lime);opacity:.55}
+
+.sysmap-core{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:clamp(64px,9vw,94px);height:clamp(64px,9vw,94px);border-radius:50%;background:radial-gradient(circle,var(--lime),rgba(168,255,0,.4) 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:2}
+.sysmap-core-ring{position:absolute;inset:-16px;border:1px solid rgba(168,255,0,.3);border-radius:50%;animation:coreping 2.6s ease-out infinite}
+@keyframes coreping{0%{transform:scale(.82);opacity:.8}100%{transform:scale(1.55);opacity:0}}
+.sysmap-core-label{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(13px,1.6vw,19px);color:#0a0a0a;letter-spacing:1px}
+.sysmap-core-sub{font-size:8.5px;color:#0a0a0a;opacity:.75;letter-spacing:1.5px;text-transform:uppercase}
+
+.sysmap-node{position:absolute;transform:translate(-50%,-50%);width:clamp(50px,6.8vw,70px);height:clamp(50px,6.8vw,70px);border-radius:50%;background:var(--bg2);border:1px solid rgba(168,255,0,.22);display:flex;align-items:center;justify-content:center;cursor:none;z-index:3;transition:all .3s;color:var(--muted);font-size:clamp(17px,2.1vw,23px);padding:0;font-family:inherit}
+.sysmap-node .snode-idx{position:absolute;top:-8px;right:-9px;background:#0a0a0a;color:var(--lime);font-size:9px;font-weight:700;padding:2px 5px;border-radius:999px;border:1px solid rgba(168,255,0,.3);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px}
+.sysmap-node:hover{border-color:var(--lime);color:var(--lime);transform:translate(-50%,-50%) scale(1.08)}
+.sysmap-node.active{background:var(--lime);color:#0a0a0a;border-color:var(--lime);box-shadow:0 0 26px rgba(168,255,0,.45);transform:translate(-50%,-50%) scale(1.12)}
+
+.sysmap-panel{background:var(--bg2);border:1px solid rgba(168,255,0,.1);border-radius:20px;padding:32px;display:flex;flex-direction:column}
+.sysmap-panel-tag{display:inline-block;background:var(--lime);color:#0a0a0a;font-size:11px;font-weight:700;padding:4px 12px;border-radius:999px;letter-spacing:1px;margin-bottom:16px;align-self:flex-start}
+.sysmap-panel-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(26px,3vw,36px);font-weight:900;text-transform:uppercase;margin-bottom:10px;line-height:1}
+.sysmap-panel-desc{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:24px;flex:1}
+.sysmap-panel-link{display:inline-flex;align-items:center;gap:8px;color:var(--lime);text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:14px;align-self:flex-start;padding-bottom:2px;border-bottom:1px solid transparent;transition:border-color .2s}
+.sysmap-panel-link:hover{border-color:var(--lime)}
+.sysmap-panel-status{font-size:11px;color:var(--dim);letter-spacing:1px;text-transform:uppercase;margin-top:auto;padding-top:16px;border-top:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.sysmap-panel-status .dot{width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 8px rgba(168,255,0,.6);flex-shrink:0}
+
+@media(max-width:900px){
+  .sysmap-wrap{grid-template-columns:1fr;gap:20px;margin-bottom:60px}
+  .sysmap-diagram{aspect-ratio:1/1}
+  .sysmap-panel{padding:24px}
+}
+
+/* ══ CERTS ══ */
+#certs{padding:80px 40px;background:var(--alt);transition:background .4s}
+.certs-inner{max-width:1200px;margin:0 auto}
+.ctitle{font-family:'Barlow Condensed',sans-serif;font-size:clamp(42px,7vw,100px);font-weight:900;text-transform:uppercase;letter-spacing:-.5px;line-height:.9;margin-bottom:12px}
+.ctitle-sub{font-size:14px;color:var(--muted);margin-bottom:48px;letter-spacing:.5px}
+.cgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.ccard{perspective:1000px;height:220px;cursor:none;border-radius:20px}
+.ccard-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .65s cubic-bezier(.4,0,.2,1);border-radius:20px}
+.ccard.flipped .ccard-inner{transform:rotateY(180deg)}
+.ccard-front,.ccard-back{position:absolute;inset:0;border-radius:20px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 18px;text-align:center;border:1px solid var(--border);transition:border-color .3s,background .4s}
+.ccard-front{background:var(--cert-bg)}
+.ccard:hover .ccard-front{border-color:rgba(168,255,0,.35)}
+.ccard-back{background:#0a0a0a;transform:rotateY(180deg);border-color:rgba(168,255,0,.4);box-shadow:0 20px 50px rgba(0,0,0,.4);padding:0;overflow:hidden;justify-content:flex-end;align-items:stretch}
+.cicon{font-size:30px;color:var(--lime);margin-bottom:14px}
+.corg{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--lime);margin-bottom:6px}
+.cname{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;text-transform:uppercase;line-height:1.25}
+.cflip-hint{font-size:11px;color:var(--dim);margin-top:12px;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;gap:5px;opacity:.6}
+/* back face image layout */
+.cb-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:20px;display:block}
+.cb-img-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border-radius:20px;background:linear-gradient(135deg,#0f0f15,#0a0a0a)}
+.cb-img-placeholder i{font-size:28px;color:rgba(168,255,0,.2)}
+.cb-img-placeholder span{font-size:11px;color:rgba(255,255,255,.2);letter-spacing:1.5px;text-transform:uppercase}
+.cb-overlay{position:absolute;bottom:0;left:0;right:0;padding:14px 16px;background:linear-gradient(to top,rgba(0,0,0,.9),transparent);border-radius:0 0 20px 20px;display:flex;align-items:center;justify-content:space-between}
+.cb-overlay-name{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#fff;line-height:1.2}
+.cb-overlay-org{font-size:10px;color:var(--lime);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px}
+.cb-tap{font-size:10px;color:var(--lime);letter-spacing:1px;text-transform:uppercase;opacity:.7;white-space:nowrap;flex-shrink:0;margin-left:10px}
+
+/* ══ CONTACT ══ */
+#contact{padding:100px 40px;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1.4fr;gap:80px;align-items:center}
+.contact-img-wrap{position:relative;display:flex;justify-content:center}
+.contact-img{width:clamp(220px,26vw,360px);height:clamp(290px,34vw,470px);border-radius:24px;overflow:hidden;background:linear-gradient(160deg,var(--photo-s),var(--photo-e));box-shadow:0 30px 80px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;transition:background .4s;border:1px solid rgba(168,255,0,.12)}
+.contact-init{font-family:'Barlow Condensed',sans-serif;font-size:clamp(60px,8vw,90px);font-weight:900;color:var(--photo-text)}
+.c-circle{width:clamp(70px,8vw,100px);height:clamp(70px,8vw,100px);background:var(--lime);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:clamp(28px,3.5vw,40px);position:absolute;bottom:-18px;left:-14px;box-shadow:0 8px 30px rgba(168,255,0,.25);transition:transform .3s;cursor:none;color:#0a0a0a}
+.c-circle:hover{transform:scale(1.1) rotate(-10deg)}
+.c-dot{width:14px;height:14px;background:var(--lime);border-radius:50%;position:absolute;top:70px;right:-26px;animation:fdot 3s .5s ease-in-out infinite;box-shadow:0 0 20px rgba(168,255,0,.4)}
+.ctact-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(38px,5vw,80px);font-weight:900;text-transform:uppercase;letter-spacing:-2px;line-height:.95;margin-bottom:14px}
+.ctact-sub{font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:32px;max-width:480px}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.cf-g{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
+.cf-lbl{font-size:13px;font-weight:600;color:var(--lime);letter-spacing:.5px}
+.cf-inp{background:var(--input-bg);border:1px solid var(--input-border);border-radius:999px;padding:13px 20px;color:var(--white);font-family:'Barlow',sans-serif;font-size:15px;outline:none;transition:border-color .25s,background .4s,color .4s}
+.cf-inp:focus{border-color:var(--lime);background:rgba(168,255,0,.03)}
+.cf-inp::placeholder{color:#555}
+.cf-ta{border-radius:16px;min-height:110px;resize:vertical}
+.cf-sel{background:var(--input-bg);border:1px solid var(--input-border);border-radius:999px;padding:13px 20px;color:var(--muted);font-family:'Barlow',sans-serif;font-size:15px;outline:none;appearance:none;width:100%;cursor:none;transition:border-color .25s,background .4s}
+.cf-sel:focus{border-color:var(--lime);color:var(--white);background:rgba(168,255,0,.03)}
+.cf-sel{
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    color: var(--muted);
+}
+
+.cf-sel:focus{
+    border-color: var(--lime);
+    background: rgba(168,255,0,.03);
+    color: var(--white);
+}
+.cf-btn{background:transparent;color:var(--lime);border:2px solid var(--lime);border-radius:999px;padding:15px 44px;font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;letter-spacing:2px;text-transform:uppercase;cursor:none;transition:all .3s;margin-top:6px}
+.cf-btn:hover{background:var(--lime);color:#0a0a0a;transform:translateY(-2px);box-shadow:0 12px 30px rgba(168,255,0,.2)}
+.msg-ok{background:rgba(168,255,0,.1);border:1px solid rgba(168,255,0,.3);color:var(--lime);border-radius:12px;padding:11px 14px;font-size:14px;margin-bottom:12px;display:none}
+.msg-err{background:rgba(255,80,80,.1);border:1px solid rgba(255,80,80,.3);color:#ff7070;border-radius:12px;padding:11px 14px;font-size:14px;margin-bottom:12px;display:none}
+
+/* ══ FOOTER ══ */
+footer{background:var(--footer-bg);padding:26px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid var(--border)}
+.flogo{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;text-transform:uppercase;letter-spacing:2px;color:#fff}
+.flogo span{color:var(--lime)}
+.fcopy{font-size:12px;color:#666}
+.fsocs{display:flex;gap:10px}
+.fsoc{width:38px;height:38px;border:1px solid rgba(168,255,0,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#999;text-decoration:none;font-size:14px;transition:all .25s;background:rgba(168,255,0,.05)}
+.fsoc:hover{background:var(--lime);color:#0a0a0a;border-color:var(--lime)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.reveal.v{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+.cf-sel,
+.cf-sel:focus,
+.cf-sel:active{
+    background: var(--input-bg) !important;
+    color: var(--white) !important;
+    border-color: var(--lime) !important;
+}
+
+/* ══ RESPONSIVE ══ */
+
+/* Tablet 768–1024 */
+@media(max-width:1024px){
+  .hero-inner{gap:40px}
+  .hero-desc{max-width:200px}
+  #about{gap:40px;padding:60px 24px 100px}
+  #projects{padding:60px 24px 0}
+  #contact{gap:40px;padding:60px 24px}
+  .cgrid{grid-template-columns:repeat(2,1fr)}
+}
+
+/* Mobile ≤768 */
+@media(max-width:768px){
+  /* nav */
+  .nav-links{display:none}
+  .nav-cta{display:none}
+  .nav-burger{display:flex}
+  nav{padding:6px 8px}
+
+  /* hero — stacked column layout */
+  #hero{height:auto;min-height:100vh}
+  .hero-sticky{position:relative;height:auto;min-height:100vh;padding:80px 20px 60px;flex-direction:column;justify-content:center;align-items:center;gap:0}
+  .hero-inner{display:flex;flex-direction:column;align-items:center;text-align:center;gap:0;padding:0;grid-template-columns:1fr}
+  .hero-left{align-items:center;padding:0;margin-bottom:24px;order:1}
+  .hero-right{align-items:center;padding:0;order:2;margin-bottom:20px}
+  .hero-desc{max-width:320px;text-align:center}
+  .hero-circle{bottom:-14px;left:-10px}
+  #heroGhost{width:clamp(160px,55vw,240px);height:clamp(210px,72vw,320px)}
+
+  /* disable flying card animation on mobile — show static card */
+  #flyCard{display:none}
+  .hero-static-card{display:flex!important}
+
+  /* hero toggle */
+  .hero-toggle{bottom:20px}
+
+  /* about */
+  #about{grid-template-columns:1fr;gap:32px;padding:56px 20px 80px}
+  .about-left{position:static}
+  .about-right{padding-top:0}
+  #aboutGhost{width:clamp(200px,70vw,300px);height:clamp(260px,90vw,400px)}
+  .about-dot{display:none}
+
+  /* static about photo (mobile fallback) */
+  .about-static-card{display:flex!important}
+
+  /* projects */
+  #projects{padding:56px 20px 0}
+  .proj-title{font-size:clamp(38px,10vw,60px)}
+  .pthumb{height:clamp(260px,70vw,360px)}
+  .pcard{position:relative;top:auto;margin-bottom:20px}
+  .proj-slot{height:auto!important}
+
+  /* certs */
+  #certs{padding:56px 20px}
+  .cgrid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .ctitle{font-size:clamp(38px,10vw,60px)}
+
+  /* contact */
+  #contact{grid-template-columns:1fr;gap:36px;padding:56px 20px}
+  .cf-row{grid-template-columns:1fr}
+  .contact-img-wrap{justify-content:center}
+
+  /* footer */
+  footer{padding:20px;flex-direction:column;text-align:center;gap:14px}
+}
+
+/* Very small ≤400px */
+@media(max-width:400px){
+  .cgrid{grid-template-columns:1fr}
+  .hero-wl,.hero-wr{font-size:clamp(42px,13vw,60px)}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+
+<!-- MOBILE NAV DRAWER -->
+<div class="nav-drawer" id="navDrawer">
+  <div class="nav-drawer-close" onclick="closeDrawer()">✕</div>
+  <a href="#hero" onclick="closeDrawer()">Home</a>
+  <a href="#about" onclick="closeDrawer()">About</a>
+  <a href="#projects" onclick="closeDrawer()">Projects</a>
+  <a href="#certs" onclick="closeDrawer()">Certs</a>
+  <a href="#contact" onclick="closeDrawer()">Contact</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-avatar">RRT</div>
+  <ul class="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <!-- <li><a href="#certs">Certs</a></li> -->
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <div class="nav-burger" id="burger" onclick="openDrawer()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-sticky">
+    <div class="hero-inner">
+      <div class="hero-left" id="hL">
+        <div class="hero-name">Rahul Raj T</div>
+        <div class="hero-wl">SOFTWARE DEVELOPER</div>
+        <div class="hero-desc">Software Developer at Manappuram Finance R&amp;D — building systems and innovative tools.</div>
+      </div>
+      <div class="hero-right" id="hR">
+        <div id="heroGhost"></div>
+        <div class="hero-circle" id="hCircle" style="opacity:0;pointer-events:none"></div>
+      </div>
+    </div>
+    <div class="hero-toggle">
+      <span class="tlabel" id="tlL">Dark</span>
+      <div class="tpill" onclick="toggleMode()"><div class="tknob"></div></div>
+      <span class="tlabel" id="tlR">Light</span>
+    </div>
+  </div>
+</section>
+
+<!-- FLY CARD (desktop only) -->
+<div id="flyCard">
+  <div class="card-face front">
+    <img src="{% static 'images/profile.png' %}" alt="Profile Photo" class="card-photo">
+    <div class="card-init"></div>
+    <div class="card-label">
+      <span></span>
+    </div>
+  </div>
+
+  <div class="card-face back">
+    <div class="card-init"></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-left reveal">
+    <h2 class="about-title">WHAT I CAN<br>DO FOR YOU</h2>
+
+    <p class="about-sub">
+      Software developer and R&amp;D engineer passionate about crafting meaningful digital products through clean code and smart systems.
+    </p>
+
+    <ul class="svc-list">
+
+      <!-- 01 -->
+      <li class="svc-item">
+        <div class="svc-row" onclick="toggleSvc(this)">
+          <span class="svc-num">01</span>
+          <span class="svc-name">Machine Learning</span>
+          <i class="fa-solid fa-chevron-up svc-icon"></i>
+        </div>
+        <div class="svc-body">
+          <p>ML models for classification, prediction, and NLP — turning raw data into actionable intelligence for real business problems.</p>
+        </div>
+      </li>
+
+      <!-- 02 -->
+      <li class="svc-item">
+        <div class="svc-row" onclick="toggleSvc(this)">
+          <span class="svc-num">02</span>
+          <span class="svc-name">Deep Learning</span>
+          <i class="fa-solid fa-chevron-up svc-icon"></i>
+        </div>
+        <div class="svc-body">
+          <p>Designing and training deep learning models using TensorFlow and PyTorch for computer vision, face recognition, image classification, object detection, OCR, and other AI-driven applications.</p>
+        </div>
+      </li>
+
+      <!-- 03 -->
+      <li class="svc-item">
+        <div class="svc-row" onclick="toggleSvc(this)">
+          <span class="svc-num">03</span>
+          <span class="svc-name">GEN AI</span>
+          <i class="fa-solid fa-chevron-up svc-icon"></i>
+        </div>
+        <div class="svc-body">
+          <p>Building intelligent AI solutions using Large Language Models (LLMs), Retrieval-Augmented Generation (RAG), AI agents, prompt engineering, and model integration to automate workflows and deliver smarter user experiences.</p>
+        </div>
+      </li>
+
+      <!-- 04 -->
+      <li class="svc-item">
+        <div class="svc-row" onclick="toggleSvc(this)">
+          <span class="svc-num">04</span>
+          <span class="svc-name">R&amp;D &amp; Prototyping</span>
+          <i class="fa-solid fa-chevron-up svc-icon"></i>
+        </div>
+        <div class="svc-body">
+          <p>Rapid prototyping of new ideas — bridging research and product through fast iteration and hands-on experimentation.</p>
+        </div>
+      </li>
+
+    </ul>
+
+    <div class="soc-row">
+      <a href="https://www.linkedin.com/in/rahul-raj-t/" target="_blank" class="soc-btn">
+        <i class="fa-brands fa-linkedin-in"></i>
+      </a>
+
+      <a href="https://github.com/Rahul2924" target="_blank" class="soc-btn">
+        <i class="fa-brands fa-github"></i>
+      </a>
+
+      <a href="#" class="soc-btn">
+        <i class="fa-brands fa-instagram"></i>
+      </a>
+
+      <a href="mailto:rahulrajt08@gmail.com" class="soc-btn">
+        <i class="fa-solid fa-envelope"></i>
+      </a>
+    </div>
+
+  </div>
+
+  <div class="about-right" id="aRight">
+    <div class="about-dot"></div>
+    <div id="aboutGhost"></div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="reveal">
+    <div class="proj-title">FEATURED PROJECTS<div class="proj-ldot"></div></div>
+    <p class="proj-sub">Five running processes, one core. Select a node to inspect what it does.</p>
+  </div>
+
+  <div class="sysmap-wrap reveal">
+    <div class="sysmap-diagram" id="sysmapDiagram">
+      <svg class="sysmap-svg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+        <path id="sp0" class="sysmap-line active" d="M400,300 L400,70"></path>
+        <path id="sp1" class="sysmap-line" d="M400,300 L618.7,228.9"></path>
+        <path id="sp2" class="sysmap-line" d="M400,300 L535.2,486.1"></path>
+        <path id="sp3" class="sysmap-line" d="M400,300 L264.8,486.1"></path>
+        <path id="sp4" class="sysmap-line" d="M400,300 L181.3,228.9"></path>
+        <circle r="4" class="sysmap-particle"><animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#sp0"></mpath></animateMotion></circle>
+        <circle r="4" class="sysmap-particle"><animateMotion dur="3.1s" repeatCount="indefinite"><mpath href="#sp1"></mpath></animateMotion></circle>
+        <circle r="4" class="sysmap-particle"><animateMotion dur="2.8s" repeatCount="indefinite"><mpath href="#sp2"></mpath></animateMotion></circle>
+        <circle r="4" class="sysmap-particle"><animateMotion dur="3.4s" repeatCount="indefinite"><mpath href="#sp3"></mpath></animateMotion></circle>
+        <circle r="4" class="sysmap-particle"><animateMotion dur="3s" repeatCount="indefinite"><mpath href="#sp4"></mpath></animateMotion></circle>
+      </svg>
+
+      <div class="sysmap-core">
+        <div class="sysmap-core-ring"></div>
+        <div class="sysmap-core-label">RRT</div>
+        <div class="sysmap-core-sub">Core</div>
+      </div>
+
+      <button class="sysmap-node active" data-i="0" style="left:50%;top:11.67%" onclick="selectNode(0)" aria-label="Proxy Detection System">
+        <i class="fa-solid fa-user-secret"></i><span class="snode-idx">01</span>
+      </button>
+      <button class="sysmap-node" data-i="1" style="left:77.34%;top:38.15%" onclick="selectNode(1)" aria-label="Liveness Detection System">
+        <i class="fa-solid fa-eye"></i><span class="snode-idx">02</span>
+      </button>
+      <button class="sysmap-node" data-i="2" style="left:66.9%;top:81.02%" onclick="selectNode(2)" aria-label="Human Intrusion Detection System">
+        <i class="fa-solid fa-triangle-exclamation"></i><span class="snode-idx">03</span>
+      </button>
+      <button class="sysmap-node" data-i="3" style="left:33.1%;top:81.02%" onclick="selectNode(3)" aria-label="RAG Model Chatbot">
+        <i class="fa-solid fa-robot"></i><span class="snode-idx">04</span>
+      </button>
+      <button class="sysmap-node" data-i="4" style="left:22.66%;top:38.15%" onclick="selectNode(4)" aria-label="AI PPT Generation System">
+        <i class="fa-solid fa-file-powerpoint"></i><span class="snode-idx">05</span>
+      </button>
+    </div>
+
+    <div class="sysmap-panel" id="sysmapPanel"></div>
+  </div>
+</section>
+
+
+<!-- CERTS -->
+<section id="certs">
+  <div class="certs-inner">
+    <h2 class="ctitle reveal">CERTIFICATIONS</h2>
+    <p class="ctitle-sub reveal">Tap a card to flip it and see the credential.</p>
+
+    <div class="cgrid reveal">
+      <div class="ccard" data-i="0" onclick="this.classList.toggle('flipped')">
+        <div class="ccard-inner">
+          <div class="ccard-front">
+            <i class="fa-solid fa-award cicon"></i>
+            <div class="corg">Datamites</div>
+            <div class="cname">Certified AI Expert</div>
+            <div class="cflip-hint"><i class="fa-solid fa-rotate"></i> Tap to flip</div>
+          </div>
+          <div class="ccard-back">
+            <img src="{% static 'images/DATAMITES AI.jpg' %}" alt="Certified AI Expert" class="cb-img">
+            <div class="cb-overlay">
+              <div>
+                <div class="cb-overlay-name">Certified AI Expert</div>
+                <div class="cb-overlay-org">Datamites</div>
+              </div>
+              <span class="cb-tap">Tap to flip back</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ccard" data-i="1" onclick="this.classList.toggle('flipped')">
+        <div class="ccard-inner">
+          <div class="ccard-front">
+            <i class="fa-solid fa-award cicon"></i>
+            <div class="corg">Datamites</div>
+            <div class="cname">Certified Data Scientist</div>
+            <div class="cflip-hint"><i class="fa-solid fa-rotate"></i> Tap to flip</div>
+          </div>
+          <div class="ccard-back">
+            <img src="{% static 'images/DATAMITES CDS.jpg' %}" alt="Certified Data Scientist" class="cb-img">
+            <div class="cb-overlay">
+              <div>
+                <div class="cb-overlay-name">Certified Data Scientist</div>
+                <div class="cb-overlay-org">Datamites</div>
+              </div>
+              <span class="cb-tap">Tap to flip back</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ccard" data-i="2" onclick="this.classList.toggle('flipped')">
+        <div class="ccard-inner">
+          <div class="ccard-front">
+            <i class="fa-solid fa-award cicon"></i>
+            <div class="corg">Nasscom</div>
+            <div class="cname">Nasscom Certified Data Scientist</div>
+            <div class="cflip-hint"><i class="fa-solid fa-rotate"></i> Tap to flip</div>
+          </div>
+          <div class="ccard-back">
+            <img src="{% static 'images/Nasscom CDS.jpg' %}" alt="Nasscom Certified Data Scientist" class="cb-img">
+
+            <div class="cb-overlay">
+              <div>
+                <div class="cb-overlay-name">Nasscom Certified Data Scientist</div>
+                <div class="cb-overlay-org">Nasscom</div>
+              </div>
+              <span class="cb-tap">Tap to flip back</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ccard" data-i="3" onclick="this.classList.toggle('flipped')">
+        <div class="ccard-inner">
+          <div class="ccard-front">
+            <i class="fa-solid fa-award cicon"></i>
+            <div class="corg">Nasscom</div>
+            <div class="cname">Nasscom AI Engineer</div>
+            <div class="cflip-hint"><i class="fa-solid fa-rotate"></i> Tap to flip</div>
+          </div>
+          <div class="ccard-back">
+            <img src="{% static 'images/Nasscom AI.jpg' %}" alt="Nasscom AI Engineer" class="cb-img">
+            <div class="cb-overlay">
+              <div>
+                <div class="cb-overlay-name">Nasscom AI Engineer</div>
+                <div class="cb-overlay-org">Nasscom</div>
+              </div>
+              <span class="cb-tap">Tap to flip back</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-img-wrap reveal">
+    <div class="contact-img"><div class="contact-init">RRT</div></div>
+    <div class="c-circle">Hi</div>
+    <div class="c-dot"></div>
+  </div>
+
+  <div class="reveal d2">
+    <h2 class="ctact-title">LET'S WORK<br>TOGETHER</h2>
+    <p class="ctact-sub">
+      Let's build something impactful — whether it's a system, a tool, or your next big idea.
+    </p>
+
+    <div id="msgOk" class="msg-ok"></div>
+    <div id="msgErr" class="msg-err"></div>
+
+    <form method="POST" action="">
+      {% csrf_token %}
+
+      <div class="cf-row">
+        <div class="cf-g">
+          <label class="cf-lbl">Name</label>
+          <input class="cf-inp" id="cfn" name="name" type="text" placeholder=" " required>
+        </div>
+
+        <div class="cf-g">
+          <label class="cf-lbl">Email</label>
+          <input class="cf-inp" id="cfe" name="email" type="email" placeholder=" " required>
+        </div>
+      </div>
+
+      <div class="cf-g">
+        <label class="cf-lbl">Phone Number</label>
+        <input class="cf-inp" id="cph" name="number" type="text" placeholder=" " >
+      </div>
+
+      <div class="cf-g">
+        <label class="cf-lbl">Service Needed?</label>
+        <select class="cf-sel" id="cfs" name="service">
+          <option value="">Select...</option>
+          <option>Machine Learning</option>
+          <option>Deep Learning</option>
+          <option>Gen AI</option>
+          <option>R&amp;D Collaboration</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="cf-g">
+        <label class="cf-lbl">What Can I Help You...</label>
+        <textarea class="cf-inp cf-ta" id="cfm" name="content" placeholder="Hello, I'd like to enquire about..."></textarea>
+      </div>
+
+      <button type="submit" class="cf-btn">SUBMIT</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="flogo">Rahul<span>.</span></div>
+  <p class="fcopy">© 2025 Rahul Raj T. All Rights Reserved.</p>
+  <div class="fsocs">
+    <a href="https://www.linkedin.com/in/rahul-raj-t/" target="_blank" class="fsoc"><i class="fa-brands fa-linkedin-in"></i></a>
+    <a href="https://github.com/Rahul2924" target="_blank" class="fsoc"><i class="fa-brands fa-github"></i></a>
+    <a href="#" class="fsoc"><i class="fa-brands fa-instagram"></i></a>
+  </div>
+</footer>
+
+<script>
+/* ── CURSOR ── */
+const cur=document.getElementById('cur');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px'});
+document.querySelectorAll('a,button,select,.sysmap-node,.ccard,.svc-row,.tpill').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cur.classList.add('big'));
+  el.addEventListener('mouseleave',()=>cur.classList.remove('big'));
+});
+ 
+/* ── MOBILE NAV ── */
+function openDrawer(){document.getElementById('navDrawer').classList.add('open');document.getElementById('burger').classList.add('open')}
+function closeDrawer(){document.getElementById('navDrawer').classList.remove('open');document.getElementById('burger').classList.remove('open')}
+ 
+/* ── DARK/LIGHT ── */
+function toggleMode(){
+  document.body.classList.toggle('lm');
+  const L=document.body.classList.contains('lm');
+  document.getElementById('tlL').style.opacity=L?.4:1;
+  document.getElementById('tlR').style.opacity=L?1:.4;
+}
+ 
+/* ── REVEAL ── */
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('v'),i*60)});
+},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+ 
+/* ── ACCORDION ── */
+function toggleSvc(row){
+  const item=row.closest('.svc-item'),open=item.classList.contains('open');
+  document.querySelectorAll('.svc-item').forEach(i=>i.classList.remove('open'));
+  if(!open)item.classList.add('open');
+}
+ 
+/* ── FLYING CARD (desktop only) ── */
+(function(){
+  const isMobile=()=>window.innerWidth<=768;
+  const flyCard=document.getElementById('flyCard');
+  const hGhost=document.getElementById('heroGhost');
+  const aGhost=document.getElementById('aboutGhost');
+  const hCircle=document.getElementById('hCircle');
+  const hL=document.getElementById('hL');
+  const hR=document.getElementById('hR');
+ 
+  function lerp(a,b,t){return a+(b-a)*t}
+  function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+ 
+  function hPos(){const r=hGhost.getBoundingClientRect();return{l:r.left,t:r.top,w:r.width,h:r.height}}
+  function aPos(){const r=aGhost.getBoundingClientRect();return{l:r.left,t:r.top,w:r.width,h:r.height}}
+ 
+  function applyCard(l,t,w,h,ry){
+    flyCard.style.left=l+'px'; flyCard.style.top=t+'px';
+    flyCard.style.width=w+'px'; flyCard.style.height=h+'px';
+    flyCard.style.transform=`perspective(1200px) rotateY(${ry}deg)`;
+  }
+ 
+  function init(){
+    if(isMobile()){flyCard.style.opacity='0';return}
+    const hp=hPos();
+    applyCard(hp.l,hp.t,hp.w,hp.h,0);
+    flyCard.style.opacity='1';
+  }
+ 
+  function onScroll(){
+    if(isMobile())return;
+    const sy=window.scrollY,vh=window.innerHeight;
+    const animEnd=vh*1.4;
+    const p=Math.max(0,Math.min(1,sy/animEnd));
+    const ep=ease(p);
+    const tf=Math.min(1,p/.45);
+    hL.style.transform=`translateX(${-tf*100}px) translateY(${-tf*30}px)`;
+    hL.style.opacity=String(1-tf*1.3);
+    hR.style.transform=`translateX(${tf*100}px) translateY(${-tf*30}px)`;
+    hR.style.opacity=String(1-tf*1.3);
+    hCircle.style.opacity=String(1-tf*1.5);
+    const hp=hPos(),ap=aPos();
+    const tp=Math.max(0,Math.min(1,(p-.3)/.7));
+    const te=ease(tp);
+    const l=lerp(hp.l,ap.l,te),t2=lerp(hp.t,ap.t,te);
+    const w=lerp(hp.w,ap.w,te),h=lerp(hp.h,ap.h,te);
+    const ry=ep*180;
+    const arc=Math.sin(p*Math.PI)*36;
+    applyCard(l,t2-arc,w,h,ry);
+  }
+ 
+  requestAnimationFrame(()=>requestAnimationFrame(init));
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',()=>{init();onScroll()});
+  onScroll();
+ 
+  /* parallax */
+  document.getElementById('hero').addEventListener('mousemove',e=>{
+    if(isMobile()||window.scrollY>window.innerHeight*.2)return;
+    const rect=document.getElementById('hero').getBoundingClientRect();
+    const x=(e.clientX-rect.left)/rect.width-.5;
+    const y=(e.clientY-rect.top)/rect.height-.5;
+    const hp=hPos();
+    flyCard.style.left=(hp.l+x*16)+'px';
+    flyCard.style.top=(hp.t+y*10)+'px';
+    hCircle.style.transform=`translate(${x*-22}px,${y*-14}px)`;
+  });
+})();
+ 
+/* ── SYSTEM MAP (project nodes) ── */
+const sysProjects=[
+  {tag:'Computer Vision · Face Recognition',title:'Proxy Detection System',desc:'Designed and deployed an AI-powered identity verification system that detects proxy attendance and impersonation attempts using face recognition, facial embeddings, and similarity analysis, improving authentication security in production.',link:'https://github.com/Rahul2924/Proxy_Detection_System',status:'Production'},
+  {tag:'Deep Learning · Anti-Spoofing',title:'Liveness Detection System',desc:'Built a production-grade liveness detection solution capable of identifying spoof attacks from printed photos, mobile displays, and replay videos using deep learning and computer vision, strengthening secure identity verification.',link:'https://github.com/Rahul2924/Liveness_Detection_System',status:'Production'},
+  {tag:'YOLO · Computer Vision',title:'Human Intrusion Detection System',desc:'Developed a real-time surveillance system that detects unauthorized human intrusion using deep learning object detection models, enabling instant monitoring and automated security alerts for restricted environments.',link:'https://github.com/Rahul2924/Intrusion-Detection_System',status:'Production'},
+  {tag:'LLM · RAG · NLP',title:'RAG Model Chatbot',desc:'Engineered an enterprise Retrieval-Augmented Generation (RAG) chatbot that combines vector search with large language models to provide accurate, context-aware responses from organization-specific documents and knowledge bases.',link:'https://github.com/Rahul2924/RAG-CHATBOT',status:'Production'},
+  {tag:'Generative AI · Automation',title:'AI PPT Generation System',desc:'Built an AI-powered presentation generation platform that transforms user prompts into professional PowerPoint presentations by automatically generating structured content, slide layouts, and visual elements using large language models.',link:'https://github.com/Rahul2924/SlideFlow-AI#',status:'Production'}
+];
+function selectNode(i){
+  document.querySelectorAll('.sysmap-node').forEach((n,idx)=>n.classList.toggle('active',idx===i));
+  document.querySelectorAll('.sysmap-line').forEach((l,idx)=>l.classList.toggle('active',idx===i));
+  const p=sysProjects[i];
+  document.getElementById('sysmapPanel').innerHTML=
+    '<div class="sysmap-panel-tag">'+p.tag+'</div>'+
+    '<div class="sysmap-panel-title">'+p.title+'</div>'+
+    '<p class="sysmap-panel-desc">'+p.desc+'</p>'+
+    '<a href="'+p.link+'" target="_blank" class="sysmap-panel-link">View Source <i class="fa-solid fa-arrow-up-right"></i></a>'+
+    '<div class="sysmap-panel-status"><span class="dot"></span>Status: '+p.status+'</div>';
+}
+selectNode(0);
+ 
+/* ── FORM ── */
+function sendMsg(){
+  const n=document.getElementById('cfn').value.trim();
+  const e=document.getElementById('cfe').value.trim();
+  const ok=document.getElementById('msgOk'),err=document.getElementById('msgErr');
+  if(!n||!e){err.textContent='Please fill in your name and email.';err.style.display='block';ok.style.display='none';return}
+  ok.textContent=`Thanks ${n}! I'll be in touch soon.`;ok.style.display='block';err.style.display='none';
+  ['cfn','cfe','cfm'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('cfs').value='';
+  setTimeout(()=>ok.style.display='none',5000);
+}
+</script>
+</body>
+</html>
